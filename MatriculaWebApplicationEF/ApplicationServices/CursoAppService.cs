@@ -33,7 +33,7 @@ namespace MatriculaWebApplicationEF.ApplicationServices
             var noExisteCurso = curso == null;
             if (noExisteCurso)
             {
-                return "El curso no existe";
+                return "El Curso no existe";
             }
 
 
