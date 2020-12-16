@@ -19,7 +19,7 @@ namespace MatriculaWebApplicationEF.ApplicationServices
             _usuarioDomainServices = usuarioDomainService;
         }
 
-        public async Task<string> RegistrarCurso(Usuario usuarioRequest)
+        public async Task<string> RegistrarUsuario(Usuario usuarioRequest)
         {
             var usu = _baseDatos.Usuarios.FirstOrDefault(q => q.Id == usuarioRequest.Id);
 
