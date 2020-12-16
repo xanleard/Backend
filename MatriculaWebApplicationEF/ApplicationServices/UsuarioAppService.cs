@@ -8,36 +8,36 @@ using System.Threading.Tasks;
 
 namespace MatriculaWebApplicationEF.ApplicationServices
 {
-    public class ProfesorAppService
+    public class UsuarioAppService
     {
         private readonly UniversidadDataContext _baseDatos;
-        private readonly ProfesorDomainService _profesorDomainServices;
+        private readonly UsuarioDomainService _usuarioDomainServices;
 
-        public ProfesorAppService(UniversidadDataContext baseDatos, ProfesorDomainService profesorDomainService)
+        public UsuarioAppService(UniversidadDataContext baseDatos, UsuarioDomainService usuarioDomainService)
         {
             _baseDatos = baseDatos;
-            _profesorDomainServices = profesorDomainService;
+            _usuarioDomainServices = usuarioDomainService;
         }
 
-        public async Task<string> RegistrarProfesor(Profesor profesorRequest)
+        public async Task<string> RegistrarCurso(Usuario usuarioRequest)
         {
-            var prof = _baseDatos.Cursos.FirstOrDefault(q => q.Id == profesorRequest.Id);
+            var usu = _baseDatos.Usuarios.FirstOrDefault(q => q.Id == usuarioRequest.Id);
 
-            var profExiste = prof != null;
-            if (profExiste)
+            var usuExiste = usu != null;
+            if (usuExiste)
             {
-                return "El Profesor ya existe";
+                return "El Usuario ya existe";
             }
 
-            var profe = _baseDatos.Cursos.FirstOrDefault(q => q.Id == profesorRequest.Id);
-            var noExisteprofe = profe == null;
-            if (noExisteprofe)
+            var usuario = _baseDatos.Usuarios.FirstOrDefault(q => q.Id == usuarioRequest.Id);
+            var noExisteUsuario = usuario == null;
+            if (noExisteUsuario)
             {
-                return "El Profesor no existe";
+                return "El Usuario no existe";
             }
 
 
-            var respuestaDomain = _profesorDomainServices.RegistrarProfesor(profesorRequest);
+            var respuestaDomain = _usuarioDomainServices.RegistrarUsuario(usuarioRequest);
 
             var vieneConErrorEnElDomain = respuestaDomain != null;
             if (vieneConErrorEnElDomain)
@@ -46,7 +46,7 @@ namespace MatriculaWebApplicationEF.ApplicationServices
             }
 
 
-            _baseDatos.Profesores.Add(profesorRequest);
+            _baseDatos.Usuarios.Add(usuarioRequest);
 
             try
             {

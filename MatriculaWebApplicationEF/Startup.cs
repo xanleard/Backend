@@ -33,11 +33,14 @@ namespace MatriculaWebApplicationEF
             services.AddScoped<CursoDomainService>();
             services.AddScoped<PaisHacerDomainService>();
             services.AddScoped<ProfesorDomainService>();
+            services.AddScoped<UsuarioDomainService>();
 
             services.AddScoped<EstudianteAppService>();
             services.AddScoped<CursoAppService>();
             services.AddScoped<PaisHacerAppService>();
             services.AddScoped<ProfesorAppService>();
+            services.AddScoped<UsuarioAppService>();
+
 
             services.AddDbContext<UniversidadDataContext>();
             

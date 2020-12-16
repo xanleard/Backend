@@ -25,14 +25,14 @@ namespace MatriculaWebApplicationEF.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Profesor>>> GetProfesores()
         {
-            return await _baseDatos.Profesor.ToListAsync();
+            return await _baseDatos.Profesores.ToListAsync();
         }
 
         // GET: api/Profesor/1
         [HttpGet("{id}")]
         public async Task<ActionResult<Profesor>> GetProfesor(long id)
         {
-            var pro = await _baseDatos.Profesor.Include(q => q.Estudiantes).FirstOrDefaultAsync(q => q.Id == id);
+            var pro = await _baseDatos.Profesores.FirstOrDefaultAsync(q => q.Id == id);
 
             if (pro == null)
             {
@@ -60,7 +60,7 @@ namespace MatriculaWebApplicationEF.Controllers
         [HttpPost("rango")]
         public async Task<ActionResult<Profesor>> PostCurso(IEnumerable<Profesor> items)
         {
-            _baseDatos.Profesor.AddRange(items);
+            _baseDatos.Profesores.AddRange(items);
             await _baseDatos.SaveChangesAsync();
 
             return CreatedAtAction(nameof(GetProfesores), items);
@@ -70,14 +70,14 @@ namespace MatriculaWebApplicationEF.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteProfesor(int id)
         {
-            var pro = await _baseDatos.Profesor.FindAsync(id);
+            var pro = await _baseDatos.Profesores.FindAsync(id);
 
             if (pro == null)
             {
                 return NotFound();
             }
 
-            _baseDatos.Profesor.Remove(pro);
+            _baseDatos.Profesores.Remove(pro);
             await _baseDatos.SaveChangesAsync();
 
             return Ok("success");
@@ -87,14 +87,14 @@ namespace MatriculaWebApplicationEF.Controllers
         [HttpDelete("rango")]
         public async Task<IActionResult> DeleteCursos(IEnumerable<int> ids)
         {
-            IEnumerable<Profesor> profesor = _baseDatos.Profesor.Where(q => ids.Contains(q.Id));
+            IEnumerable<Profesor> profesor = _baseDatos.Profesores.Where(q => ids.Contains(q.Id));
 
             if (profesor == null)
             {
                 return NotFound();
             }
 
-            _baseDatos.Profesor.RemoveRange(profesor);
+            _baseDatos.Profesores.RemoveRange(profesor);
             await _baseDatos.SaveChangesAsync();
 
             return Ok("success");
@@ -109,7 +109,7 @@ namespace MatriculaWebApplicationEF.Controllers
                 return BadRequest();
             }
 
-            Profesor profesor = await _baseDatos.Profesor.FirstOrDefaultAsync(q => q.Id == item.Id);
+            Profesor profesor = await _baseDatos.Profesores.FirstOrDefaultAsync(q => q.Id == item.Id);
             if (profesor == null)
             {
                 return NotFound("El Profesor no existe");
