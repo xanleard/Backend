@@ -19,10 +19,12 @@ namespace MatriculaWebApplicationEF.Controllers
 
         private readonly UniversidadDataContext _baseDatos;
         private readonly CursoAppService _cursoAppService;
-        public CursoController(UniversidadDataContext baseDeDatos)
+        public CursoController(UniversidadDataContext baseDeDatos, CursoAppService cursoAppService)
         {
             _baseDatos = baseDeDatos;
-            
+            _cursoAppService = cursoAppService;
+
+
             if (_baseDatos.Cursos.Count() == 0)
             {
                 _baseDatos.Cursos.Add(new Curso { Nombre = "Algebra" });

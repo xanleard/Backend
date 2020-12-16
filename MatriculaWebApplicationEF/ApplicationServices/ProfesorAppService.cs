@@ -8,36 +8,36 @@ using System.Threading.Tasks;
 
 namespace MatriculaWebApplicationEF.ApplicationServices
 {
-    public class PaisHacerAppService
+    public class ProfesorAppService
     {
         private readonly UniversidadDataContext _baseDatos;
-        private readonly PaisHacerDomainService _paisDomainServices;
+        private readonly ProfesorDomainService _profesorDomainServices;
 
-        public PaisHacerAppService(UniversidadDataContext baseDatos, PaisHacerDomainService paisHacerDomainServiceaseDatos)
+        public ProfesorAppService(UniversidadDataContext baseDatos, ProfesorDomainService profesorDomainService)
         {
             _baseDatos = baseDatos;
-            _paisDomainServices = paisHacerDomainServiceaseDatos;
+            _profesorDomainServices = profesorDomainService;
         }
 
-        public async Task<string> RegistrarCurso(PaisHacer paisHacerRequest)
+        public async Task<string> RegistrarProfesor(Profesor profesorRequest)
         {
-            var pais = _baseDatos.Cursos.FirstOrDefault(q => q.Id == paisHacerRequest.Id);
+            var prof = _baseDatos.Cursos.FirstOrDefault(q => q.Id == profesorRequest.Id);
 
-            var cursoeExiste = pais != null;
-            if (cursoeExiste)
+            var profExiste = prof != null;
+            if (profExiste)
             {
-                return "El pais ya existe";
+                return "El Profesor ya existe";
             }
 
-            var paisNo = _baseDatos.Cursos.FirstOrDefault(q => q.Id == paisHacerRequest.Id);
-            var noExisteCurso = paisNo == null;
-            if (noExisteCurso)
+            var profe = _baseDatos.Cursos.FirstOrDefault(q => q.Id == profesorRequest.Id);
+            var noExisteprofe = profe == null;
+            if (noExisteprofe)
             {
-                return "El pais no existe";
+                return "El Profesor no existe";
             }
 
 
-            var respuestaDomain = _paisDomainServices.RegistrarPais(paisHacerRequest);
+            var respuestaDomain = _profesorDomainServices.RegistrarProfesor(profesorRequest);
 
             var vieneConErrorEnElDomain = respuestaDomain != null;
             if (vieneConErrorEnElDomain)
@@ -46,7 +46,7 @@ namespace MatriculaWebApplicationEF.ApplicationServices
             }
 
 
-            _baseDatos.PaisHacer.Add(paisHacerRequest);
+            _baseDatos.Profesor.Add(profesorRequest);
 
             try
             {

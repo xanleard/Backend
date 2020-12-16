@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 
 namespace MatriculaWebApplicationEF.DomainServices
 {
-    public class PaisHacerDomainServices
+    public class ProfesorDomainService
     {
-        public string RegistrarPais(PaisHacer paisRequest)
+
+        public string RegistrarProfesor(Profesor profesorRequest)
         {
-            var esName = paisRequest.Nombre != "";
+            var esName = profesorRequest.Nombre != "";
             if (esName)
             {
                 return "El nombre no es es inválido";

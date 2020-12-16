@@ -18,9 +18,10 @@ namespace MatriculaWebApplicationEF.Controllers
         private readonly UniversidadDataContext _baseDatos;
         private readonly PaisHacerAppService _paisAppServices;
 
-        public PaisHacerController(UniversidadDataContext baseDeDatos)
+        public PaisHacerController(UniversidadDataContext baseDeDatos, PaisHacerAppService paisHacerAppService)
         {
             _baseDatos = baseDeDatos;
+            _paisAppServices = paisHacerAppService;
 
         }
 
@@ -46,7 +47,7 @@ namespace MatriculaWebApplicationEF.Controllers
 
         // POST: api/PaisHacer
         [HttpPost]
-        public async Task<ActionResult<Curso>> PostPaisHacer(PaisHacer item)
+        public async Task<ActionResult<PaisHacer>> PostPaisHacer(PaisHacer item)
         {
             var respuesta = await _paisAppServices.RegistrarCurso(item);
 
