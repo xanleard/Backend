@@ -18,11 +18,32 @@ namespace MatriculaWebApplicationEF.Controllers
         private readonly UniversidadDataContext _baseDatos;
         private readonly PaisHacerAppServices _paisAppServices;
 
+        public PaisHacerController(UniversidadDataContext baseDeDatos)
+        {
+            _baseDatos = baseDeDatos;
+
+           
+        }
+
         [HttpGet]
         public async Task<ActionResult<IEnumerable<PaisHacer>>> GetPaisHacer()
         {
             return await _baseDatos.PaisHacer.ToListAsync();
          }
 
-}
+        // GET: api/PaisHacer/1
+        [HttpGet("{id}")]
+        public async Task<ActionResult<PaisHacer>> GetPaisHacer(long id)
+        {
+            var pais = await _baseDatos.PaisHacer.FirstOrDefaultAsync(q => q.Id == id);
+
+            if (pais == null)
+            {
+                return NotFound();
+            }
+
+            return pais;
+        }
+
+    }
 }
