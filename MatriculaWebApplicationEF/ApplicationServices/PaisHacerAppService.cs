@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 
 namespace MatriculaWebApplicationEF.ApplicationServices
 {
-    public class PaisHacerAppServices
+    public class PaisHacerAppService
     {
         private readonly UniversidadDataContext _baseDatos;
         private readonly PaisHacerDomainServices _paisDomainServices;
 
-        public PaisHacerAppServices(UniversidadDataContext baseDatos, PaisHacerDomainServices paisHacerDomainServiceaseDatos)
+        public PaisHacerAppService(UniversidadDataContext baseDatos, PaisHacerDomainServices paisHacerDomainServiceaseDatos)
         {
             _baseDatos = baseDatos;
             _paisDomainServices = paisHacerDomainServiceaseDatos;

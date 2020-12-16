@@ -12,7 +12,7 @@ namespace MatriculaWebApplicationEF.DataContext
     {
         public void Configure(EntityTypeBuilder<Curso> builder)
         {
-            builder.ToTable("Estudiantes", "dbo");
+            builder.ToTable("Cursos", "dbo");
             builder.HasKey(q => q.Id);
             builder.Property(e => e.Id).IsRequired().UseIdentityColumn();
             builder.Property(e => e.Nombre).HasColumnType("varchar(50)").HasMaxLength(50).IsRequired();
