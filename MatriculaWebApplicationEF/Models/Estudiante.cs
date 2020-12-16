@@ -7,6 +7,8 @@
         public int Edad { get; set; }
         public string Sexo { get; set; }
         public int CursoId { get; set; }
+
+        public int PaisHacerId { get; set; }
         public Curso Curso { get; set; }
     }
 }
