@@ -22,7 +22,7 @@ namespace MatriculaWebApplicationEF.Controllers
         public CursoController(UniversidadDataContext baseDeDatos)
         {
             _baseDatos = baseDeDatos;
-
+            
             if (_baseDatos.Cursos.Count() == 0)
             {
                 _baseDatos.Cursos.Add(new Curso { Nombre = "Algebra" });
