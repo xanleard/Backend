@@ -48,10 +48,16 @@ namespace MatriculaWebApplicationEF
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
+            using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
             {
-                app.UseDeveloperExceptionPage();
+                var contex = serviceScope.ServiceProvider.GetRequiredService<UniversidadDataContext>();
+                contex.Database.EnsureCreated();
             }
+
+                if (env.IsDevelopment())
+                {
+                    app.UseDeveloperExceptionPage();
+                }
 
             app.UseCors(builder =>
             {

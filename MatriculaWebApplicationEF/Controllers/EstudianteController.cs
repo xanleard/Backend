@@ -42,7 +42,7 @@ namespace MatriculaWebApplicationEF.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Estudiante>> GetEstudiante(long id)
         {
-            var estudiante = await _baseDatos.Estudiantes.Include(q => q.Curso).FirstOrDefaultAsync(q => q.Id == id);
+            var estudiante = await _baseDatos.Estudiantes.Include(q => q.PaisHacer).Include(q => q.Profesor).Include(q => q.Curso).FirstOrDefaultAsync(q => q.Id == id);
 
             if (estudiante == null)
             {
