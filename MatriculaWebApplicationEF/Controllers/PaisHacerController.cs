@@ -18,11 +18,12 @@ namespace MatriculaWebApplicationEF.Controllers
         private readonly UniversidadDataContext _baseDatos;
         private readonly PaisHacerAppServices _paisAppServices;
 
-        public PaisHacerController(UniversidadDataContext baseDeDatos)
+        public PaisHacerController(UniversidadDataContext baseDeDatos, PaisHacerAppServices paisHacerAppServices)
         {
             _baseDatos = baseDeDatos;
+            _paisAppServices = paisHacerAppServices;
 
-           
+
         }
 
         [HttpGet]
