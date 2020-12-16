@@ -19,7 +19,7 @@ namespace MatriculaWebApplicationEF.ApplicationServices
             _profesorDomainServices = profesorDomainService;
         }
 
-        public async Task<string> RegistrarCurso(Profesor profesorRequest)
+        public async Task<string> RegistrarProfesor(Profesor profesorRequest)
         {
             var prof = _baseDatos.Cursos.FirstOrDefault(q => q.Id == profesorRequest.Id);
 

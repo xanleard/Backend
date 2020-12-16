@@ -47,7 +47,7 @@ namespace MatriculaWebApplicationEF.Controllers
 
         // POST: api/PaisHacer
         [HttpPost]
-        public async Task<ActionResult<Curso>> PostPaisHacer(PaisHacer item)
+        public async Task<ActionResult<PaisHacer>> PostPaisHacer(PaisHacer item)
         {
             var respuesta = await _paisAppServices.RegistrarCurso(item);
 
