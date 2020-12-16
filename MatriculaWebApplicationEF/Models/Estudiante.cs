@@ -10,5 +10,6 @@
 
         public int PaisHacerId { get; set; }
         public Curso Curso { get; set; }
+        public PaisHacer PaisHacer { get; set; }
     }
 }
