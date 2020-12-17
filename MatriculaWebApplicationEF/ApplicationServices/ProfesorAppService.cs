@@ -29,13 +29,6 @@ namespace MatriculaWebApplicationEF.ApplicationServices
                 return "El Profesor ya existe";
             }
 
-            var profe = _baseDatos.Cursos.FirstOrDefault(q => q.Id == profesorRequest.Id);
-            var noExisteprofe = profe == null;
-            if (noExisteprofe)
-            {
-                return "El Profesor no existe";
-            }
-
 
             var respuestaDomain = _profesorDomainServices.RegistrarProfesor(profesorRequest);
 

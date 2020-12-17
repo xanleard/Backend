@@ -14,11 +14,11 @@ namespace MatriculaWebApplicationEF.DomainServices
             var esName = profesorRequest.Nombre != "";
             if (esName)
             {
-                return "El nombre no es es inválido";
+                return null;
             }
 
 
-            return null;
+            return "El nombre no es es inválido";
         }
     }
 }

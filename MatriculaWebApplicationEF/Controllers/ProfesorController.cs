@@ -46,19 +46,20 @@ namespace MatriculaWebApplicationEF.Controllers
         [HttpPost]
         public async Task<ActionResult<Profesor>> PostProfesor(Profesor item)
         {
-            var respuesta = await _profesorAppService.RegistrarProfesor(item);
+            string respuesta = await _profesorAppService.RegistrarProfesor(item);
 
             if (respuesta != null)
             {
                 return BadRequest(respuesta);
             }
 
-            return CreatedAtAction(nameof(_profesorAppService), new { id = item.Id }, item);
+            return CreatedAtAction(nameof(GetProfesor), new { id = item.Id }, item);
+
         }
 
         // POST Rango: api/Profesor
         [HttpPost("rango")]
-        public async Task<ActionResult<Profesor>> PostCurso(IEnumerable<Profesor> items)
+        public async Task<ActionResult<Profesor>> PostProfesor(IEnumerable<Profesor> items)
         {
             _baseDatos.Profesores.AddRange(items);
             await _baseDatos.SaveChangesAsync();
