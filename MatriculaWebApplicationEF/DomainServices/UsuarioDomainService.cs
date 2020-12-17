@@ -8,16 +8,20 @@ namespace MatriculaWebApplicationEF.DomainServices
 {
     public class UsuarioDomainService
     {
-        public string RegistrarUsuario(Usuario usuarioRequest)
+        public string TieneAcceso(Usuario usuario)
         {
-            var esName = usuarioRequest.Nombre != "";
-            if (esName)
+            var usuarioExiste = usuario == null;
+            if (usuarioExiste)
             {
-                return "El nombre no es es inválido";
+                return "El usuario o la contraseña no son válidos";
             }
 
+            if (usuario.EstaActivo == false)
+            {
+                return "El usuario no está activo";
+            }
 
-            return null;
+            return "sucess";
         }
 
     }

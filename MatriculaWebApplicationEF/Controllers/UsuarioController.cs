@@ -24,7 +24,7 @@ namespace MatriculaWebApplicationEF.Controllers
 
             if (_baseDatos.Usuarios.Count() == 0)
             {
-                _baseDatos.Usuarios.Add(new Usuario { Nombre = "Algebra" , IsValid = true});
+                _baseDatos.Usuarios.Add(new Usuario { UsuarioId = "jaleman", Contrasenia = "123", EstaActivo = true });
                 _baseDatos.SaveChanges();
             }
         }
@@ -35,32 +35,32 @@ namespace MatriculaWebApplicationEF.Controllers
             return await _baseDatos.Usuarios.ToListAsync();
         }
 
-        // GET: api/Usuario/1
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Usuario>> GetUsuario(long id)
+        // GET: api/Estudiante/1
+        [HttpGet("{usuarioId}/{contrasenia}")]
+        public async Task<ActionResult<Usuario>> GetUsuario(string usuarioId, string contrasenia)
         {
-            var usuario = await _baseDatos.Usuarios.FirstOrDefaultAsync(q => q.Id == id);
+            var response = await _usuarioAppService.TieneAccesoUsuario(usuarioId, contrasenia);
 
-            if (usuario == null)
+            if (response != "success")
             {
-                return NotFound();
-            }
+                return BadRequest(response);
 
-            return usuario;
+            }
+            return Ok("success");
         }
 
         // POST: api/Usuario
         [HttpPost]
         public async Task<ActionResult<Usuario>> PostUsuario(Usuario item)
         {
-            var respuesta = await _usuarioAppService.RegistrarUsuario(item);
+            //var respuesta = await _usuarioAppService.RegistrarUsuario(item);
 
-            if (respuesta != null)
-            {
-                return BadRequest(respuesta);
-            }
+            //if (respuesta != null)
+            //{
+            //    return BadRequest(respuesta);
+            //}
 
-            return CreatedAtAction(nameof(GetUsuario), new { id = item.Id }, item);
+            return CreatedAtAction(nameof(GetUsuario), new { id = item.UsuarioId }, item);
         }
 
         // POST Rango: api/Usuario
@@ -92,9 +92,9 @@ namespace MatriculaWebApplicationEF.Controllers
 
         // DELETE Range: api/Usuario/5
         [HttpDelete("rango")]
-        public async Task<IActionResult> DeleteCursos(IEnumerable<int> ids)
+        public async Task<IActionResult> DeleteCursos(IEnumerable<string> ids)
         {
-            IEnumerable<Usuario> usuarios = _baseDatos.Usuarios.Where(q => ids.Contains(q.Id));
+            IEnumerable<Usuario> usuarios = _baseDatos.Usuarios.Where(q => ids.Contains(q.UsuarioId));
 
             if (usuarios == null)
             {
@@ -109,14 +109,14 @@ namespace MatriculaWebApplicationEF.Controllers
 
         // PUT: api/Usuario/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCurso(int id, Usuario item)
+        public async Task<IActionResult> PutCurso(string id, Usuario item)
         {
-            if (id != item.Id)
+            if (id != item.UsuarioId)
             {
                 return BadRequest();
             }
 
-            Usuario usuario = await _baseDatos.Usuarios.FirstOrDefaultAsync(q => q.Id == item.Id);
+            Usuario usuario = await _baseDatos.Usuarios.FirstOrDefaultAsync(q => q.UsuarioId == item.UsuarioId);
             if (usuario == null)
             {
                 return NotFound("El Usuario no existe");

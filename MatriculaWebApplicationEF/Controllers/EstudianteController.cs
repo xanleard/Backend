@@ -23,11 +23,7 @@ namespace MatriculaWebApplicationEF.Controllers
             _baseDatos = context;
             _estudianteAppService = estudianteAppService;
 
-            if (_baseDatos.Estudiantes.Count() == 0)
-            {
-                _baseDatos.Estudiantes.Add(new Estudiante { Nombre = "Josue", Edad = 25, Sexo = "M", CursoId = 1 });
-                _baseDatos.SaveChanges();
-            }
+           
         }
 
 

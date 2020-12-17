@@ -1,6 +1,7 @@
 ﻿using MatriculaWebApplicationEF.DataContext;
 using MatriculaWebApplicationEF.DomainServices;
 using MatriculaWebApplicationEF.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,45 +20,21 @@ namespace MatriculaWebApplicationEF.ApplicationServices
             _usuarioDomainServices = usuarioDomainService;
         }
 
-        public async Task<string> RegistrarUsuario(Usuario usuarioRequest)
+        public async Task<string> TieneAccesoUsuario(string usuarioId, string contrasenia)
         {
-            var usu = _baseDatos.Usuarios.FirstOrDefault(q => q.Id == usuarioRequest.Id);
-
-            var usuExiste = usu != null;
-            if (usuExiste)
-            {
-                return "El Usuario ya existe";
-            }
-
-            var usuario = _baseDatos.Usuarios.FirstOrDefault(q => q.Id == usuarioRequest.Id);
-            var noExisteUsuario = usuario == null;
-            if (noExisteUsuario)
-            {
-                return "El Usuario no existe";
-            }
+            var usuario = await _baseDatos.Usuarios.FirstOrDefaultAsync(q => q.UsuarioId == usuarioId
+            && q.Contrasenia == contrasenia);
 
 
-            var respuestaDomain = _usuarioDomainServices.RegistrarUsuario(usuarioRequest);
+            var respuestaDomain = _usuarioDomainServices.TieneAcceso(usuario);
 
-            var vieneConErrorEnElDomain = respuestaDomain != null;
+            bool vieneConErrorEnElDomain = respuestaDomain != null;
             if (vieneConErrorEnElDomain)
             {
                 return respuestaDomain;
             }
 
-
-            _baseDatos.Usuarios.Add(usuarioRequest);
-
-            try
-            {
-                await _baseDatos.SaveChangesAsync();
-                return null;
-            }
-            catch (Exception)
-            {
-
-                return "Oops! hubo un problema al guardar en la base de datos";
-            }
+            return "sucess";
 
         }
 
