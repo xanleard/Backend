@@ -53,12 +53,12 @@ namespace MatriculaWebApplicationEF.Controllers
         [HttpPost]
         public async Task<ActionResult<Usuario>> PostUsuario(Usuario item)
         {
-            //var respuesta = await _usuarioAppService.RegistrarUsuario(item);
+            var respuesta = await _usuarioAppService.TieneAccesoUsuario(item.UsuarioId,item.Contrasenia);
 
-            //if (respuesta != null)
-            //{
-            //    return BadRequest(respuesta);
-            //}
+            if (respuesta != null)
+            {
+                return BadRequest(respuesta);
+            }
 
             return CreatedAtAction(nameof(GetUsuario), new { id = item.UsuarioId }, item);
         }
@@ -75,7 +75,7 @@ namespace MatriculaWebApplicationEF.Controllers
 
         // DELETE: api/Usuario/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteUsuario(int id)
+        public async Task<IActionResult> DeleteUsuario(string id)
         {
             var usuario = await _baseDatos.Usuarios.FindAsync(id);
 
@@ -116,7 +116,8 @@ namespace MatriculaWebApplicationEF.Controllers
                 return BadRequest();
             }
 
-            Usuario usuario = await _baseDatos.Usuarios.FirstOrDefaultAsync(q => q.UsuarioId == item.UsuarioId);
+
+            Usuario usuario = await _baseDatos.Usuarios.AsNoTracking().FirstOrDefaultAsync(q => q.UsuarioId == item.UsuarioId);
             if (usuario == null)
             {
                 return NotFound("El Usuario no existe");
