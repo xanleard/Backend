@@ -20,5 +20,15 @@ namespace MatriculaWebApplicationEF.DomainServices
 
             return "El nombre no es es inválido";
         }
+
+        public bool ValidarNombre(string nombre)
+        {
+            if (nombre != "")
+            {
+                return true;
+            }
+            return false;
+
+        }
     }
 }
