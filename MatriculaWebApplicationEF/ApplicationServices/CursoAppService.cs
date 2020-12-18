@@ -29,14 +29,6 @@ namespace MatriculaWebApplicationEF.ApplicationServices
                 return "El Curso ya existe";
             }
 
-            var curso = _baseDatos.Cursos.FirstOrDefault(q => q.Id == cursoRequest.Id);
-            var noExisteCurso = curso == null;
-            if (noExisteCurso)
-            {
-                return "El Curso no existe";
-            }
-
-
             var respuestaDomain = _cursoDomainServices.RegistrarCurso(cursoRequest);
 
             var vieneConErrorEnElDomain = respuestaDomain != null;

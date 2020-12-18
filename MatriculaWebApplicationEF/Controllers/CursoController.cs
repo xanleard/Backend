@@ -59,12 +59,12 @@ namespace MatriculaWebApplicationEF.Controllers
         [HttpPost]
         public async Task<ActionResult<Curso>> PostCurso(Curso item)
         {
-            //var respuesta = await _cursoAppService.RegistrarCurso(item);
+            var respuesta = await _cursoAppService.RegistrarCurso(item);
 
-            //if (respuesta != null)
-            //{
-            //    return BadRequest(respuesta);
-            //}
+            if (respuesta != null)
+            {
+                return BadRequest(respuesta);
+            }
 
             return CreatedAtAction(nameof(GetCurso), new { id = item.Id }, item);
         }

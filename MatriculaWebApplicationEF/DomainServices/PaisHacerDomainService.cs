@@ -13,11 +13,11 @@ namespace MatriculaWebApplicationEF.DomainServices
             var esName = paisRequest.Nombre != "";
             if (esName)
             {
-                return "El nombre no es es inválido";
+                return null;
             }
 
 
-            return null;
+            return "El nombre no es es inválido";
         }
     }
 }
