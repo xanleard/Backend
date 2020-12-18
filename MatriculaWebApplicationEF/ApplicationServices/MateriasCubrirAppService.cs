@@ -8,28 +8,28 @@ using System.Threading.Tasks;
 
 namespace MatriculaWebApplicationEF.ApplicationServices
 {
-    public class CursoAppService
+    public class MateriasCubrirAppService
     {
         private readonly UniversidadDataContext _baseDatos;
-        private readonly CursoDomainService _cursoDomainServices;
+        private readonly MateriasCubrirDomainService _materiaDomainServices;
 
-        public CursoAppService(UniversidadDataContext baseDatos, CursoDomainService cursoDomainServiceaseDatos)
+        public MateriasCubrirAppService(UniversidadDataContext baseDatos, MateriasCubrirDomainService materiasCubrirDomainService )
         {
             _baseDatos = baseDatos;
-            _cursoDomainServices = cursoDomainServiceaseDatos;
+            _materiaDomainServices = materiasCubrirDomainService;
         }
 
-        public async Task<string> RegistrarCurso(Curso cursoRequest)
+        public async Task<string> RegistrarMateria(MateriasCubrir materiaCubrirRequest)
         {
-            var cursoe = _baseDatos.Cursos.FirstOrDefault(q => q.Id == cursoRequest.Id);
+            var materia = _baseDatos.MateriasCubrir.FirstOrDefault(q => q.Id == materiaCubrirRequest.Id);
 
-            var cursoeExiste = cursoe != null;
-            if (cursoeExiste)
+            var materiaExiste = materia != null;
+            if (materiaExiste)
             {
-                return "El Curso ya existe";
+                return "La materia ya existe";
             }
 
-            var respuestaDomain = _cursoDomainServices.RegistrarCurso(cursoRequest);
+            var respuestaDomain = _materiaDomainServices.RegistrarMateria(materiaCubrirRequest);
 
             var vieneConErrorEnElDomain = respuestaDomain != null;
             if (vieneConErrorEnElDomain)
@@ -38,7 +38,7 @@ namespace MatriculaWebApplicationEF.ApplicationServices
             }
 
 
-            _baseDatos.Cursos.Add(cursoRequest);
+            _baseDatos.MateriasCubrir.Add(materiaCubrirRequest);
 
             try
             {

@@ -1,17 +1,22 @@
 ﻿using MatriculaWebApplicationEF.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace MatriculaWebApplicationEF.DomainServices
 {
-    public class CursoDomainService
+    public class ProfesorDomainService
     {
-        public string RegistrarCurso(Curso cursoRequest)
+
+        public string RegistrarProfesor(Profesor profesorRequest)
         {
-            var esName = cursoRequest.Nombre != "";
+            var esName = profesorRequest.Nombre != "";
             if (esName)
             {
                 return null;
             }
-           
+
 
             return "El nombre no es es inválido";
         }

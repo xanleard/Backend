@@ -30,7 +30,20 @@ namespace MatriculaWebApplicationEF
         {
 
             services.AddScoped<EstudianteDomainService>();
+            services.AddScoped<CursoDomainService>();
+            services.AddScoped<PaisHacerDomainService>();
+            services.AddScoped<ProfesorDomainService>();
+            services.AddScoped<UsuarioDomainService>();
+            services.AddScoped<MateriasCubrirDomainService>();
+
             services.AddScoped<EstudianteAppService>();
+            services.AddScoped<CursoAppService>();
+            services.AddScoped<PaisHacerAppService>();
+            services.AddScoped<ProfesorAppService>();
+            services.AddScoped<UsuarioAppService>();
+            services.AddScoped<MateriasCubrirAppService>();
+
+
             services.AddDbContext<UniversidadDataContext>();
             
             services.AddMvc().AddNewtonsoftJson(option => option.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
@@ -40,10 +53,16 @@ namespace MatriculaWebApplicationEF
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
+            using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
             {
-                app.UseDeveloperExceptionPage();
+                var contex = serviceScope.ServiceProvider.GetRequiredService<UniversidadDataContext>();
+                contex.Database.EnsureCreated();
             }
+
+                if (env.IsDevelopment())
+                {
+                    app.UseDeveloperExceptionPage();
+                }
 
             app.UseCors(builder =>
             {

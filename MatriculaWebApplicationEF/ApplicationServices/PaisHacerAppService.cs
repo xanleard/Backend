@@ -8,28 +8,28 @@ using System.Threading.Tasks;
 
 namespace MatriculaWebApplicationEF.ApplicationServices
 {
-    public class CursoAppService
+    public class PaisHacerAppService
     {
         private readonly UniversidadDataContext _baseDatos;
-        private readonly CursoDomainService _cursoDomainServices;
+        private readonly PaisHacerDomainService _paisDomainServices;
 
-        public CursoAppService(UniversidadDataContext baseDatos, CursoDomainService cursoDomainServiceaseDatos)
+        public PaisHacerAppService(UniversidadDataContext baseDatos, PaisHacerDomainService paisHacerDomainServiceaseDatos)
         {
             _baseDatos = baseDatos;
-            _cursoDomainServices = cursoDomainServiceaseDatos;
+            _paisDomainServices = paisHacerDomainServiceaseDatos;
         }
 
-        public async Task<string> RegistrarCurso(Curso cursoRequest)
+        public async Task<string> RegistrarCurso(PaisHacer paisHacerRequest)
         {
-            var cursoe = _baseDatos.Cursos.FirstOrDefault(q => q.Id == cursoRequest.Id);
+            var pais = _baseDatos.Cursos.FirstOrDefault(q => q.Id == paisHacerRequest.Id);
 
-            var cursoeExiste = cursoe != null;
+            var cursoeExiste = pais != null;
             if (cursoeExiste)
             {
-                return "El Curso ya existe";
+                return "El pais ya existe";
             }
 
-            var respuestaDomain = _cursoDomainServices.RegistrarCurso(cursoRequest);
+            var respuestaDomain = _paisDomainServices.RegistrarPais(paisHacerRequest);
 
             var vieneConErrorEnElDomain = respuestaDomain != null;
             if (vieneConErrorEnElDomain)
@@ -38,7 +38,7 @@ namespace MatriculaWebApplicationEF.ApplicationServices
             }
 
 
-            _baseDatos.Cursos.Add(cursoRequest);
+            _baseDatos.PaisHacer.Add(paisHacerRequest);
 
             try
             {
@@ -52,5 +52,6 @@ namespace MatriculaWebApplicationEF.ApplicationServices
             }
 
         }
+
     }
 }

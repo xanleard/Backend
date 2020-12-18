@@ -23,11 +23,7 @@ namespace MatriculaWebApplicationEF.Controllers
             _baseDatos = context;
             _estudianteAppService = estudianteAppService;
 
-            if (_baseDatos.Estudiantes.Count() == 0)
-            {
-                _baseDatos.Estudiantes.Add(new Estudiante { Nombre = "Josue", Edad = 25, Sexo = "M", CursoId = 1 });
-                _baseDatos.SaveChanges();
-            }
+           
         }
 
 
@@ -42,7 +38,7 @@ namespace MatriculaWebApplicationEF.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Estudiante>> GetEstudiante(long id)
         {
-            var estudiante = await _baseDatos.Estudiantes.Include(q => q.Curso).FirstOrDefaultAsync(q => q.Id == id);
+            var estudiante = await _baseDatos.Estudiantes.Include(q => q.PaisHacer).Include(q => q.Profesor).Include(q => q.Curso).FirstOrDefaultAsync(q => q.Id == id);
 
             if (estudiante == null)
             {

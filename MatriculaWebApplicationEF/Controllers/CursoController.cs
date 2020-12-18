@@ -19,9 +19,11 @@ namespace MatriculaWebApplicationEF.Controllers
 
         private readonly UniversidadDataContext _baseDatos;
         private readonly CursoAppService _cursoAppService;
-        public CursoController(UniversidadDataContext baseDeDatos)
+        public CursoController(UniversidadDataContext baseDeDatos, CursoAppService cursoAppService)
         {
             _baseDatos = baseDeDatos;
+            _cursoAppService = cursoAppService;
+
 
             if (_baseDatos.Cursos.Count() == 0)
             {
@@ -57,12 +59,12 @@ namespace MatriculaWebApplicationEF.Controllers
         [HttpPost]
         public async Task<ActionResult<Curso>> PostCurso(Curso item)
         {
-            //var respuesta = await _cursoAppService.RegistrarCurso(item);
+            var respuesta = await _cursoAppService.RegistrarCurso(item);
 
-            //if (respuesta != null)
-            //{
-            //    return BadRequest(respuesta);
-            //}
+            if (respuesta != null)
+            {
+                return BadRequest(respuesta);
+            }
 
             return CreatedAtAction(nameof(GetCurso), new { id = item.Id }, item);
         }

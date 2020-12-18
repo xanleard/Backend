@@ -8,28 +8,29 @@ using System.Threading.Tasks;
 
 namespace MatriculaWebApplicationEF.ApplicationServices
 {
-    public class CursoAppService
+    public class ProfesorAppService
     {
         private readonly UniversidadDataContext _baseDatos;
-        private readonly CursoDomainService _cursoDomainServices;
+        private readonly ProfesorDomainService _profesorDomainServices;
 
-        public CursoAppService(UniversidadDataContext baseDatos, CursoDomainService cursoDomainServiceaseDatos)
+        public ProfesorAppService(UniversidadDataContext baseDatos, ProfesorDomainService profesorDomainService)
         {
             _baseDatos = baseDatos;
-            _cursoDomainServices = cursoDomainServiceaseDatos;
+            _profesorDomainServices = profesorDomainService;
         }
 
-        public async Task<string> RegistrarCurso(Curso cursoRequest)
+        public async Task<string> RegistrarProfesor(Profesor profesorRequest)
         {
-            var cursoe = _baseDatos.Cursos.FirstOrDefault(q => q.Id == cursoRequest.Id);
+            var prof = _baseDatos.Cursos.FirstOrDefault(q => q.Id == profesorRequest.Id);
 
-            var cursoeExiste = cursoe != null;
-            if (cursoeExiste)
+            var profExiste = prof != null;
+            if (profExiste)
             {
-                return "El Curso ya existe";
+                return "El Profesor ya existe";
             }
 
-            var respuestaDomain = _cursoDomainServices.RegistrarCurso(cursoRequest);
+
+            var respuestaDomain = _profesorDomainServices.RegistrarProfesor(profesorRequest);
 
             var vieneConErrorEnElDomain = respuestaDomain != null;
             if (vieneConErrorEnElDomain)
@@ -38,7 +39,7 @@ namespace MatriculaWebApplicationEF.ApplicationServices
             }
 
 
-            _baseDatos.Cursos.Add(cursoRequest);
+            _baseDatos.Profesores.Add(profesorRequest);
 
             try
             {
@@ -52,5 +53,6 @@ namespace MatriculaWebApplicationEF.ApplicationServices
             }
 
         }
+
     }
 }
