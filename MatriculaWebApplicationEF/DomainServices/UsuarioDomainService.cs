@@ -24,5 +24,36 @@ namespace MatriculaWebApplicationEF.DomainServices
             return "sucess";
         }
 
+        public bool ValidarNombre(string nombre)
+        {
+            if (nombre != "")
+            {
+                return true;
+            }
+            return false;
+
+        }
+
+        public bool ValidarPass(string pass)
+        {
+            if (pass != "")
+            {
+                return true;
+            }
+            return false;
+
+        }
+
+        public bool ValidarActivo(bool isactive)
+        {
+            if (isactive)
+            {
+                return true;
+            }
+            return false;
+
+        }
+
+
     }
 }
