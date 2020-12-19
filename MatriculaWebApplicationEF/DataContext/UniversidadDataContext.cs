@@ -11,6 +11,8 @@ namespace MatriculaWebApplicationEF.DataContext
         public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<Profesor> Profesores { get; set; }
         public DbSet<MateriasCubrir> MateriasCubrir { get; set; }
+        public DbSet<Carro> Carro { get; set; }
+        public DbSet<Modelo> Modelo { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionBuilder)
         {
             optionBuilder.UseSqlServer(@"Server=DESKTOP-3NRVDJ5;DataBase=UniversidadDB;Trusted_Connection=True");

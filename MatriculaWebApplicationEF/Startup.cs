@@ -35,6 +35,8 @@ namespace MatriculaWebApplicationEF
             services.AddScoped<ProfesorDomainService>();
             services.AddScoped<UsuarioDomainService>();
             services.AddScoped<MateriasCubrirDomainService>();
+            services.AddScoped<CarroDomainService>();
+
 
             services.AddScoped<EstudianteAppService>();
             services.AddScoped<CursoAppService>();
@@ -42,6 +44,7 @@ namespace MatriculaWebApplicationEF
             services.AddScoped<ProfesorAppService>();
             services.AddScoped<UsuarioAppService>();
             services.AddScoped<MateriasCubrirAppService>();
+            services.AddScoped<CarroAppService>();
 
 
             services.AddDbContext<UniversidadDataContext>();
